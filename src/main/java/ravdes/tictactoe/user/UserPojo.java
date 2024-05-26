@@ -17,7 +17,7 @@ import java.util.Collections;
 @NoArgsConstructor
 @Entity
 
-public class User implements UserDetails {
+public class UserPojo implements UserDetails {
 
 	@SequenceGenerator(
 			name = "student_sequence",
@@ -39,12 +39,12 @@ public class User implements UserDetails {
 	private Boolean locked;
 	private Boolean enabled;
 
-	public User(String username,
-				String email,
-				String password,
-				UserRole userRole,
-				Boolean locked,
-				Boolean enabled) {
+	public UserPojo(String username,
+					String email,
+					String password,
+					UserRole userRole,
+					Boolean locked,
+					Boolean enabled) {
 		this.username = username;
 		this.email = email;
 		this.password = password;

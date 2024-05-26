@@ -1,12 +1,14 @@
 package ravdes.tictactoe.user;
 
-import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
 @Repository
-//@Transactional(readOnly = true)
+@Transactional(readOnly = true)
 
-public interface UserRepository {
-	Optional<User> findByEmail(String email);
+public interface UserRepository extends JpaRepository<UserPojo, Long> {
+	Optional<UserPojo> findByEmail(String email);
 }
