@@ -17,18 +17,14 @@ spring:
     show-sql: true
 
   mail:
-    host: localhost
-    port: 1025
-    username: hello
-    password: hello
+    host: smtp.gmail.com
+    port: 587
+    username: tictactoe21online@gmail.com
+    password: qcmb vife rnkp bodj
     properties:
       mail:
         smtp:
-          ssl:
-            trust: "*"
+
           auth: true
           starttls:
             enable: true
-          connectiontimeout: 5000
-          timeout: 3000
-          writetimeout: 5000
