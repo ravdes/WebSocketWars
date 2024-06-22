@@ -1,4 +1,5 @@
-/.idea/
-/target/
-/db_data/
+/backend/.idea/
+backend/target/
+/backend/db_data/
+/.idea
 
