@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/registration")
 @AllArgsConstructor
 
+
 public class RegistrationController {
 	private RegistrationService registrationService;
 
