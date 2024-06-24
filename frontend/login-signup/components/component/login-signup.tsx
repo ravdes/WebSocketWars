@@ -3,11 +3,13 @@
 import React, { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import {useRouter} from "next/navigation";
+import {Toaster, toast} from "sonner";
 
-
-
+interface ErrorResponse {
+  message?: string;
+}
 export function LoginSignup() {
 
   const router = useRouter();
@@ -26,9 +28,17 @@ export function LoginSignup() {
         "email": mail,
         "password": password
       })
-      console.log(response.data)
+      if (response.status == 200) {
+        toast.success(response.data)
+      }
     } catch (error) {
-      console.log(error)
+      const axiosError = error as AxiosError<ErrorResponse>;
+
+      if (axiosError.response) {
+
+        // @ts-ignore
+        toast.error(axiosError.response.data);
+      }
     }
 
   }
@@ -42,12 +52,20 @@ export function LoginSignup() {
         "password": password
       });
       if (response.status == 200) {
+        toast.success(response.data)
         router.push('/account');
-
-
       }
+
     } catch(error) {
-      console.log(error)
+      const axiosError = error as AxiosError<ErrorResponse>;
+
+      if (axiosError.response) {
+
+        // @ts-ignore
+        toast.error(axiosError.response.data);
+      }
+
+
 
 
 
@@ -59,6 +77,7 @@ export function LoginSignup() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#8c7ae6]">
+      <Toaster richColors/>
       <div className="w-full max-w-md space-y-8">
         {isSignUp ? (
           <div className="rounded-lg border bg-[#f1f1f1] p-8 shadow-lg">

@@ -49,7 +49,7 @@ public class RegistrationService {
 		emailSender.send(request.email(), buildEmail(request.username(), link));
 
 
-		return token;
+		return "Successfull, check your email to verify account!";
 
 	}
 
