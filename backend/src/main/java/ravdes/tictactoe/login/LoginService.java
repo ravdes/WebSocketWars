@@ -2,6 +2,8 @@ package ravdes.tictactoe.login;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ravdes.tictactoe.jwt.JwtService;
+import ravdes.tictactoe.jwt.JwtTokenResponse;
 import ravdes.tictactoe.user.UserPojo;
 import ravdes.tictactoe.user.UserRepository;
 import java.util.Optional;
@@ -11,13 +13,15 @@ import java.util.Optional;
 public class LoginService {
 	private final UserRepository userRepository;
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	private final JwtService jwtService;
 
-	public LoginService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+	public LoginService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, JwtService jwtService) {
 		this.userRepository = userRepository;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.jwtService = jwtService;
 	}
 
-	public boolean validateUser(LoginRequest request) {
+	public JwtTokenResponse validateUser(LoginRequest request) {
 		Optional<UserPojo> userOptional = userRepository.findByEmail(request.email());
 
 		if (userOptional.isPresent()) {
@@ -31,7 +35,8 @@ public class LoginService {
 			} else if(!passwordMatch) {
 				throw new IllegalStateException("Incorrect password!");
 			}
-			return true;
+			String jwtToken = jwtService.generateToken(user);
+			return new JwtTokenResponse(jwtToken);
 
 		} else {
 			throw new IllegalStateException("Account doesn't exist");

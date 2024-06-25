@@ -1,4 +1,4 @@
-package ravdes.tictactoe.registration.token;
+package ravdes.tictactoe.registration.confirmationtoken;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

@@ -1,4 +1,4 @@
-package ravdes.tictactoe.registration.token;
+package ravdes.tictactoe.registration.confirmationtoken;
 
 import jakarta.persistence.*;
 import lombok.Getter;
