@@ -22,10 +22,10 @@ public class UserService implements UserDetailsService {
 	private final ConfirmationTokenService confirmationTokenService;
 
 	 @Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		return userRepository.findByEmail(email)
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return userRepository.findByUsername(username)
 							 .orElseThrow(() -> new UsernameNotFoundException
-									 (String.format(USER_NOT_FOUND_MSG, email)));
+									 (String.format(USER_NOT_FOUND_MSG, username)));
 	}
 
 	public String signUpUser(UserPojo userPojo) {

@@ -51,14 +51,13 @@ public class JwtService {
 	}
 
 	public String generateToken(UserPojo user) {
-		String token = Jwts
+		return Jwts
 				.builder()
 				.subject(user.getUsername())
 				.issuedAt(new Date(System.currentTimeMillis()))
 				.expiration(new Date(System.currentTimeMillis() + 24*60*60*1000))
 				.signWith(getSigningKey())
 				.compact();
-		return token;
 	}
 
 	private SecretKey getSigningKey() {
