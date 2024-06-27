@@ -19,4 +19,14 @@ public interface UserRepository extends JpaRepository<UserPojo, Long> {
 	@Modifying
 	@Query("update UserPojo u set u.enabled = true where u.email = ?1")
 	int enableUser(String email);
+
+	@Transactional
+	@Modifying
+	@Query("update UserPojo u set u.mfa = true where u.email = ?1")
+	void enableTwoFactorAuth(String email);
+
+	@Transactional
+	@Modifying
+	@Query("update UserPojo u set u.secret = ?1 where u.email = ?2")
+	void updateSecret(String secret, String email);
 }

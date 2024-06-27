@@ -38,6 +38,8 @@ public class UserPojo implements UserDetails {
 	private UserRole UserRole;
 	private Boolean locked = false;
 	private Boolean enabled = false;
+	private Boolean mfa = false;
+	private String secret;
 
 	public UserPojo(String username, String email, String password, UserRole userRole) {
 		this.username = username;
