@@ -6,10 +6,8 @@ import ravdes.tictactoe.emailsending.EmailSender;
 import ravdes.tictactoe.registration.confirmationtoken.ConfirmationToken;
 import ravdes.tictactoe.registration.confirmationtoken.ConfirmationTokenService;
 import ravdes.tictactoe.user.UserPojo;
-import ravdes.tictactoe.user.UserRepository;
 import ravdes.tictactoe.user.UserRole;
 import ravdes.tictactoe.user.UserService;
-
 import java.time.LocalDateTime;
 
 @Service
@@ -19,14 +17,12 @@ public class RegistrationService {
 	private final UserService userService;
 	private final ConfirmationTokenService confirmationTokenService;
 	private final EmailSender emailSender;
-	private final UserRepository userRepository;
 
-	public RegistrationService(EmailVerifier emailVerifier, UserService userService, ConfirmationTokenService confirmationTokenService, EmailSender emailSender, UserRepository userRepository) {
+	public RegistrationService(EmailVerifier emailVerifier, UserService userService, ConfirmationTokenService confirmationTokenService, EmailSender emailSender) {
 		this.emailVerifier = emailVerifier;
 		this.userService = userService;
 		this.confirmationTokenService = confirmationTokenService;
 		this.emailSender = emailSender;
-		this.userRepository = userRepository;
 	}
 
 	public String register(RegistrationRequest request) {
@@ -148,5 +144,6 @@ public class RegistrationService {
 				"\n" +
 				"</div></div>";
 	}
+
 
 }
