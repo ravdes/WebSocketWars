@@ -7,22 +7,38 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import ravdes.tictactoe.user.UserPojo;
-
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.function.Function;
 
 @Service
 
 public class JwtService {
 	private final String SECRET_KEY = "d7301c9a24aa4a1bcf9bf7a55dbfa851a585ad1aeadd355e2c798c277589a76f";
+	private final HashSet<String> blacklistedTokens = new HashSet<>();
 
+
+	private boolean isBlacklisted(String token) {
+		return blacklistedTokens.contains(token);
+	}
+
+	public void addToBlacklist(String token) {
+		blacklistedTokens.add(token);
+
+	}
 
 	public String extractUsername(String token) {
+		if (isBlacklisted(token)) {
+			throw new IllegalStateException("Logged out, this bearer is not valid anymore"); // Or return appropriate error code
+		}
 		return extractClaim(token, Claims::getSubject);
 	}
 
 	public boolean isValid(String token, UserDetails user) {
+		if (isBlacklisted(token)) {
+			return false;
+		}
 		String username = extractUsername(token);
 		return (username.equals(user.getUsername())) && !isTokenExpired(token);
 	}
@@ -64,4 +80,6 @@ public class JwtService {
 		byte [] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
 		return Keys.hmacShaKeyFor(keyBytes);
 	}
+
+
 }

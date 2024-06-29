@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {LoginSignup} from "@/components/component/login-signup";
 
 export default function Home() {

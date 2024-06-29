@@ -3,7 +3,6 @@ package ravdes.tictactoe.login;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ravdes.tictactoe.jwt.JwtService;
-import ravdes.tictactoe.jwt.JwtTokenResponse;
 import ravdes.tictactoe.user.UserPojo;
 import ravdes.tictactoe.user.UserRepository;
 import java.util.Optional;
@@ -21,7 +20,7 @@ public class LoginService {
 		this.jwtService = jwtService;
 	}
 
-	public JwtTokenResponse validateUser(LoginRequest request) {
+	public LoginResponse validateUser(LoginRequest request) {
 		Optional<UserPojo> userOptional = userRepository.findByEmail(request.email());
 
 		if (userOptional.isPresent()) {
@@ -36,7 +35,7 @@ public class LoginService {
 				throw new IllegalStateException("Incorrect password!");
 			}
 			String jwtToken = jwtService.generateToken(user);
-			return new JwtTokenResponse(jwtToken);
+			return new LoginResponse(jwtToken, user.getMfa());
 
 		} else {
 			throw new IllegalStateException("Account doesn't exist");

@@ -1,69 +1,89 @@
-"use client"
+  "use client"
 
-import React, { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import axios, { AxiosError } from 'axios';
-import {useRouter} from "next/navigation";
-import {Toaster, toast} from "sonner";
+  import React, { useState } from "react"
+  import { Input } from "@/components/ui/input"
+  import { Button } from "@/components/ui/button"
+  import axios, { AxiosError } from 'axios';
+  import {useRouter} from "next/navigation";
+  import {Toaster, toast} from "sonner";
 
-interface ErrorResponse {
-  message?: string;
-}
-export function LoginSignup() {
 
-  const router = useRouter();
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [mail, setMail] = useState('')
-  const [isSignUp, setIsSignUp] = useState(false)
+  interface ErrorResponse {
+    message?: string;
+  }
+  export function LoginSignup() {
 
-  const handleSignUpButton = async (event : React.SyntheticEvent<HTMLElement>) => {
-    event.preventDefault()
+    const router = useRouter();
 
-    try {
-      const response = await axios.post('http://localhost:8080/registration', {
-        "username": username,
-        "email": mail,
-        "password": password
-      })
-      if (response.status == 200) {
-        toast.success(response.data)
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [mail, setMail] = useState('')
+    const [isSignUp, setIsSignUp] = useState(false)
+
+    const handleSignUpButton = async (event : React.SyntheticEvent<HTMLElement>) => {
+      event.preventDefault()
+
+      try {
+        const response = await axios.post('http://localhost:8080/registration', {
+          "username": username,
+          "email": mail,
+          "password": password
+        })
+        if (response.status == 200) {
+          
+
+          toast.success(response.data)
+        }
+      } catch (error) {
+        const axiosError = error as AxiosError<ErrorResponse>;
+
+        if (axiosError.response) {
+
+          // @ts-ignore
+          toast.error(axiosError.response.data);
+        }
       }
-    } catch (error) {
-      const axiosError = error as AxiosError<ErrorResponse>;
 
-      if (axiosError.response) {
-
-        // @ts-ignore
-        toast.error(axiosError.response.data);
-      }
     }
 
-  }
+    const handleLoginButton = async (event : React.SyntheticEvent<HTMLElement>) => {
+      event.preventDefault()
 
-  const handleLoginButton = async (event : React.SyntheticEvent<HTMLElement>) => {
-    event.preventDefault()
+      try {
+        const response = await axios.post("http://localhost:8080/login", {
+          "email": mail,
+          "password": password
+        });
+        if (response.status == 200) {
 
-    try {
-      const response = await axios.post("http://localhost:8080/login", {
-        "email": mail,
-        "password": password
-      });
-      if (response.status == 200) {
-        toast.success(response.data)
-        router.push('/account');
-      }
+          if (typeof window !== "undefined" && response.data.mfaRequired == true) {
+            localStorage.setItem("bearer_token", response.data.bearer_token);
+            localStorage.setItem("2FAButtonDisabled", String(response.data.mfaRequired));
+            router.push("/verify2fa")
 
-    } catch(error) {
-      const axiosError = error as AxiosError<ErrorResponse>;
 
-      if (axiosError.response) {
 
-        // @ts-ignore
-        toast.error(axiosError.response.data);
-      }
+          } else if (typeof window !== "undefined" && response.data.mfaRequired == false) {
+            localStorage.setItem("bearer_token", response.data.bearer_token);
+            localStorage.setItem("2FAButtonDisabled", String(response.data.mfaRequired));
+            router.push('/account')
+          }
+
+
+
+
+
+        }
+
+      } catch(error) {
+        const axiosError = error as AxiosError<ErrorResponse>;
+
+        if (axiosError.response) {
+
+          // @ts-ignore
+          toast.error(axiosError.response.data);
+        }
 
 
 
@@ -76,7 +96,7 @@ export function LoginSignup() {
 
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#8c7ae6]">
+    <div className="flex min-h-screen items-center justify-center bg-purple-600">
       <Toaster richColors/>
       <div className="w-full max-w-md space-y-8">
         {isSignUp ? (

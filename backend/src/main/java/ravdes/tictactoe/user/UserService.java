@@ -38,12 +38,17 @@ public class UserService implements UserDetailsService {
 	}
 
 	public String signUpUser(UserPojo userPojo) {
-		 boolean userExists = userRepository.findByEmail(userPojo.getEmail()).isPresent();
-		 if(userExists) {
+
+	 	boolean emailExists = userRepository.findByEmail(userPojo.getEmail()).isPresent();
+		boolean usernameExists = userRepository.findByUsername(userPojo.getUsername()).isPresent();
+		 if(emailExists) {
 			 throw new IllegalStateException("There's already account registered with this email");
+		 } else if (usernameExists) {
+			 throw new IllegalStateException("There's already account registered with this username");
 		 }
 
-		 String encodedPassword = bCryptPasswordEncoder.encode(userPojo.getPassword());
+
+		String encodedPassword = bCryptPasswordEncoder.encode(userPojo.getPassword());
 		 userPojo.setPassword(encodedPassword);
 
 		 userRepository.save(userPojo);
