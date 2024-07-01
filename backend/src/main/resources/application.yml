@@ -3,6 +3,11 @@ server:
     include-message: always
     include-binding-errors: always
 
+logging:
+  level:
+    root: DEBUG
+    com.tictactoe: DEBUG
+
 spring:
   datasource:
     password: ravdes123
