@@ -1,10 +1,7 @@
 package ravdes.tictactoe.security.config;
 
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -43,17 +40,13 @@ public class WebSecurityConfig {
 		return http.csrf(AbstractHttpConfigurer::disable)
 			    .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
 			    .authorizeHttpRequests(
-						req->req.requestMatchers("/login**", "/registration**", "/registration/confirm", "/game/**").permitAll()
-								.anyRequest().authenticated()
-				).userDetailsService(userService).sessionManagement(session->
-						session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				 req->req.requestMatchers("/login", "/registration/**", "/game/gameplay", "/game/create", "game/connect", "game/gameplay/info", "/gameplay/**").permitAll()
+				.anyRequest().authenticated())
+			    .userDetailsService(userService).sessionManagement(
+				 session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
-//				    .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
-//				    .authorizeHttpRequests(auth -> auth
-//					.requestMatchers("/registration/**", "/login/**").permitAll()
-//					.anyRequest().authenticated())
-//				    .build();
+
 	}
 
 	@Bean
