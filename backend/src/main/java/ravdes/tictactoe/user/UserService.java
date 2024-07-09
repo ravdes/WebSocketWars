@@ -64,6 +64,18 @@ public class UserService implements UserDetailsService {
 		 return token;
 	}
 
+	public String signUpGuest(UserPojo userPojo) {
+		boolean usernameExists = userRepository.findByUsername(userPojo.getUsername()).isPresent();
+		if (usernameExists) {
+			throw new IllegalStateException("There's already account registered with this username");
+		}
+		userRepository.save(userPojo);
+		return "good";
+
+
+
+	}
+
 	public void enableUser(String email) {
 		userRepository.enableUser(email);
 	}

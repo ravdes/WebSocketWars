@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ravdes.tictactoe.twofactorauth.dto.TwoFactorAuthRequest;
 import ravdes.tictactoe.user.UserService;
 
 @RestController

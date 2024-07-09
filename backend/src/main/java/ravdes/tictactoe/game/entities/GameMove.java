@@ -1,12 +1,16 @@
 package ravdes.tictactoe.game.entities;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Data
+@Getter
+@AllArgsConstructor
 
 public class GameMove {
-	private GameMark playerMark;
+	private PlayerMark playerMark;
 	private Integer coordinateX;
 	private Integer coordinateY;
 	private String gameId;
+
+
 }

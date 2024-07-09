@@ -1,14 +1,20 @@
 package ravdes.tictactoe.game.entities;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 
 public class Game {
+	private int[][] board;
 	private String gameId;
 	private Player player1;
 	private Player player2;
+	private PlayerMark player1Mark;
+	private PlayerMark player2Mark;
+	private PlayerMark turn;
 	private GameStatus status;
-	private int[][] board;
-	private GameMark winner;
+	private PlayerMark winner;
+	private boolean tie;
 }

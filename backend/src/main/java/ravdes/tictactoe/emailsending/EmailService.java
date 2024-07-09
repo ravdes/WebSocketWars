@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 
-public class EmailService implements EmailSender{
-	private final JavaMailSender mailSender;
+public class EmailService implements EmailSender {
 	private static final Logger log = LoggerFactory.getLogger(EmailService.class);
+	private final JavaMailSender mailSender;
 
 	@Override
 	@Async
@@ -29,7 +29,7 @@ public class EmailService implements EmailSender{
 			helper.setFrom("tictactoe21online@gmail.com");
 			mailSender.send(mimeMessage);
 		} catch (MessagingException e) {
-			log.error("Failed to send email error occured {}" , e.getMessage());
+			log.error("Failed to send email error occured {}", e.getMessage());
 			throw new IllegalStateException("Failed to send email");
 		}
 

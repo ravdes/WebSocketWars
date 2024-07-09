@@ -15,3 +15,23 @@ services:
       - ./backend/db_data:/var/lib/postgresql/data
 
 
+  app:
+    container_name: springbackend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/tictacdb
+      SPRING_DATASOURCE_USERNAME: ravdes
+      SPRING_DATASOURCE_PASSWORD: ravdes123
+    depends_on:
+      - db
+  frontend:
+    container_name: frontendnext
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"

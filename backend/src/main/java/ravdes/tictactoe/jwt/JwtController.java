@@ -3,6 +3,7 @@ package ravdes.tictactoe.jwt;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ravdes.tictactoe.jwt.dto.BlacklistTokenRequest;
 
 @RestController
 

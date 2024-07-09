@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ravdes.tictactoe.game.dto.GameConnectRequest;
+import ravdes.tictactoe.game.dto.GameInfoRequest;
 import ravdes.tictactoe.game.entities.Game;
 import ravdes.tictactoe.game.entities.GameMove;
 import ravdes.tictactoe.game.entities.Player;
@@ -22,21 +24,29 @@ public class GameController {
 	}
 
 	@PostMapping("/create")
-	public Game start(@RequestBody Player player) {
-		return gameService.createGame(player);
+	public Game initializeGame(@RequestBody Player player) {
+		return gameService.createNewGame(player);
 	}
 
 	@PostMapping("/connect")
-	public Game connect(@RequestBody GameConnectRequest request) {
-		return gameService.connectToGame(request.player(), request.gameId());
+	public Game connectToExistingGame(@RequestBody GameConnectRequest request) {
+		Game game = gameService.connectToGame(request.player(), request.gameId());
+		simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
+		return game;
 	}
 
-	@PostMapping("/gameplay")
-	public Game makeMove(@RequestBody GameMove request) {
-		Game game = gameService.gamePlay(request);
+	@PostMapping("/makeMove")
+	public Game makeMoveOnBoard(@RequestBody GameMove request) {
+		Game game = gameService.makeMove(request);
 		simpMessagingTemplate.convertAndSend("/topic/game-progress/" + game.getGameId(), game);
 		return game;
 
+	}
+
+	@PostMapping("/info")
+	public void gameInfo(@RequestBody GameInfoRequest request) {
+		Game game =  gameService.getGameInfo(request.gameId());
+		simpMessagingTemplate.convertAndSend("/topic/game-progress/" + request.gameId(), game);
 	}
 
 }

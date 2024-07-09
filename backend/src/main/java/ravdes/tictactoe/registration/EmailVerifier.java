@@ -13,7 +13,6 @@ public class EmailVerifier {
 	}
 
 	public boolean validateEmail(String email) {
-//		return emailValidator.isValid(email);
-		return true;
+		return emailValidator.isValid(email);
 	}
 }

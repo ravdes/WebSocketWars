@@ -1,10 +1,7 @@
 package ravdes.tictactoe.user;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +13,7 @@ import java.util.Collections;
 @EqualsAndHashCode
 @NoArgsConstructor
 @Entity
+
 
 public class UserPojo implements UserDetails {
 
@@ -39,8 +37,9 @@ public class UserPojo implements UserDetails {
 	private Boolean locked = false;
 	private Boolean enabled = false;
 	private Boolean mfa = false;
-	private String secret;
+	private String secret = "";
 
+	@Builder
 	public UserPojo(String username, String email, String password, UserRole userRole) {
 		this.username = username;
 		this.email = email;

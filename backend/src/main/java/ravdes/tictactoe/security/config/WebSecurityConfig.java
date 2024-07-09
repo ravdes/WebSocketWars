@@ -40,7 +40,7 @@ public class WebSecurityConfig {
 		return http.csrf(AbstractHttpConfigurer::disable)
 			    .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
 			    .authorizeHttpRequests(
-				 req->req.requestMatchers("/login", "/registration/**", "/game/gameplay", "/game/create", "game/connect", "game/gameplay/info", "/gameplay/**").permitAll()
+				 req->req.requestMatchers("/login", "/registration/confirm", "registration/registerGuest", "registration","/gameplay/**").permitAll()
 				.anyRequest().authenticated())
 			    .userDetailsService(userService).sessionManagement(
 				 session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

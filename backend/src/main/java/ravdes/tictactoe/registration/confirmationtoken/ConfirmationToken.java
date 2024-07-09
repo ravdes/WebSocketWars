@@ -1,6 +1,7 @@
 package ravdes.tictactoe.registration.confirmationtoken;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,6 +46,7 @@ public class ConfirmationToken {
 	)
 	private UserPojo userPojo;
 
+	@Builder
 	public ConfirmationToken(String token,  LocalDateTime createdAt,LocalDateTime expiresAt, UserPojo userPojo) {
 		this.token = token;
 		this.createdAt = createdAt;

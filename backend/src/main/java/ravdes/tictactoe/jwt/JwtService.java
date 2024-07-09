@@ -30,7 +30,7 @@ public class JwtService {
 
 	public String extractUsername(String token) {
 		if (isBlacklisted(token)) {
-			throw new IllegalStateException("Logged out, this bearer is not valid anymore"); // Or return appropriate error code
+			throw new IllegalStateException("Logged out, this bearer is not valid anymore");
 		}
 		return extractClaim(token, Claims::getSubject);
 	}
