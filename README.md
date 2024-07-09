@@ -52,6 +52,8 @@ https://github.com/ravdes/TicTacToe/assets/107648518/3c7ddcab-79bd-40b2-95be-9c0
 - **Docker**
 - **Git**
 - **Maven**
+- **React**
+- **Next.js**
 
 # How to run?
 
