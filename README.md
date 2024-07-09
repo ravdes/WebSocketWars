@@ -29,6 +29,20 @@ After logging in, users are redirected to the `/account` page where the followin
 
 The TicTacToe gameplay implements a websocket connection to ensure there are no delays in data inflow between users. Everything is updated on the page dynamically and in real-time. Additionally, players can chat with each other which is also achieved through websocket messaging.
 
+## Demo
+
+### Account creation
+
+https://github.com/ravdes/TicTacToe/assets/107648518/ed190e1c-b0d7-4759-88df-2e33d73a9888
+
+### User vs User Gameplay
+
+https://github.com/ravdes/TicTacToe/assets/107648518/b36b7ec0-2d57-486a-a6c3-a17613db9649
+
+### User vs Guest Gameplay
+
+https://github.com/ravdes/TicTacToe/assets/107648518/3c7ddcab-79bd-40b2-95be-9c06f2ae6f99
+
 # Technologies used
 - **Java 17**
 - **Spring Boot**
