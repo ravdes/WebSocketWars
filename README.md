@@ -65,7 +65,7 @@ All layers of application (database, backend and frontend) are packaged into Doc
 2. Clone this repository
 
 ```bash
-git clone https://github.com/ravdes/TicTacToe.git
+git clone https://github.com/ravdes/WebSocketWars.git
 ```
 
 3. Run in your terminal
