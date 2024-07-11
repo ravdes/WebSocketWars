@@ -1,8 +1,8 @@
-# TicTacToe 
+# WebSocketWars 
 
 ## Application Flow and Utilities
 
-TicTacToe is an online platform allowing users to create their own accounts on the website. Here's how it works:
+WebSocketWars is an online platform allowing users to create their own accounts on the website. Here's how it works:
 
 ### Account Creation and Verification
 
